@@ -82,7 +82,7 @@ def stats_hook():
     memcache_misses = 0
     for s in web.ctx.get("stats", []):
         if s.name == 'memcache.get':
-            if s.data['hit']:
+            if s.data['key']:
                 memcache_hits += 1
             else:
                 memcache_misses += 1
