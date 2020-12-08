@@ -73,7 +73,6 @@ Open Library tests can be run using pytest. Kindly look up on our [Testing Docum
 Run tests while the docker container is running
 
 ```
-cd docker/
 docker-compose exec web make test
 ```
 
