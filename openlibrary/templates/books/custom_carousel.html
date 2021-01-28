@@ -51,6 +51,9 @@ $def render_carousel_cover(book, lazy):
           </div>
       </a>
     </div>
+    <div class="title-cover">
+      <a href="$(url)">$title</a>
+    </div>
     <div class="book-cta">
       $:macros.LoanStatus(book, work_key=work_key, listen=False, daisy=False)
     </div>
