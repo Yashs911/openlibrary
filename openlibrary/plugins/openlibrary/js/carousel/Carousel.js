@@ -82,11 +82,11 @@ const Carousel = {
         };
 
         addWork = function(work) {
-            let availability = work.availability || {};
-            let ocaid = availability.identifier ||
+            const availability = work.availability || {};
+            const ocaid = availability.identifier ||
                 work.lending_identifier_s ||
                 work.ia ? work.ia[0] : undefined;
-            let openlibrary_edition = availability.openlibrary_edition ||
+            const openlibrary_edition = availability.openlibrary_edition ||
                 work.lending_edition_s || undefined;
             // Use solr data to augment availability API
             if (!availability.status || availability.status === 'error') {
@@ -96,17 +96,17 @@ const Carousel = {
                     availability.status = 'private';
                 }
             }
-            let cover = {
+            const cover = {
                 type: 'id',
                 id: work.covers ? work.covers[0] : work.cover_id || work.cover_i
             };
-            let availabilityStatus = availabilityStatuses[availability.status];
-            let cls = availabilityStatus.cls;
-            let cta = availabilityStatus.cta;
-            let url = (cls == 'cta-btn--available') ?
+            const availabilityStatus = availabilityStatuses[availability.status];
+            const cls = availabilityStatus.cls;
+            const cta = availabilityStatus.cta;
+            const url = (cls == 'cta-btn--available') ?
                 (`/borrow/ia/${ocaid}`) : (cls == 'cta-btn--unavailable') ?
                     (`/books/${openlibrary_edition}`) : work.key;
-            let isClickable = availability.status == 'error' ? 'disabled' : '';
+            const isClickable = availability.status == 'error' ? 'disabled' : '';
 
             if (!cover.id && ocaid) {
                 cover.type = 'ia';

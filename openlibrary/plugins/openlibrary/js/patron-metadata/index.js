@@ -26,13 +26,13 @@ export function initPatronMetadata() {
 
     function populateForm($form, observations, selectedValues, id, i18nStrings) {
         for (const observation of observations) {
-            let className = observation.multi_choice ? 'multi-choice' : 'single-choice';
-            let $choices = $(`<div class="${className}"></div>`);
+            const className = observation.multi_choice ? 'multi-choice' : 'single-choice';
+            const $choices = $(`<div class="${className}"></div>`);
             let choiceIndex = observation.values.length;
-            let type = observation.label;
+            const type = observation.label;
 
             for (const value of observation.values) {
-                let choiceId = `${id}-${observation.label}Choice${choiceIndex--}`;
+                const choiceId = `${id}-${observation.label}Choice${choiceIndex--}`;
                 let checked = '';
 
                 if (type in selectedValues
@@ -47,7 +47,7 @@ export function initPatronMetadata() {
                 </label>`);
             }
 
-            let $formSection = $(`<details class="aspect-section" open>
+            const $formSection = $(`<details class="aspect-section" open>
                                     <summary><h3>${type}</h3></summary>
                                     <fieldset id="${id}-${type}-question">
                                         <legend>${observation.description}</legend>
@@ -68,9 +68,9 @@ export function initPatronMetadata() {
             change, and the new submission state.
             */
             $formSection.on(OBSERVATION_SUBMISSION, function(event, sectionType, submissionState) {
-                let pendingSpan = $(this).find('.pending-indicator')[0];
-                let successSpan = $(this).find('.success-indicator')[0];
-                let failureSpan = $(this).find('.failure-indicator')[0];
+                const pendingSpan = $(this).find('.pending-indicator')[0];
+                const successSpan = $(this).find('.success-indicator')[0];
+                const failureSpan = $(this).find('.failure-indicator')[0];
 
                 if (sectionType === type || sectionType === ANY_SECTION_TYPE) {
                     switch (submissionState) {
@@ -114,8 +114,8 @@ export function initPatronMetadata() {
     }
 
     $('.modal-link').on('click', function() {
-        let context = $(this).data('context');
-        let i18nStrings = $(this).data('i18n');
+        const context = $(this).data('context');
+        const i18nStrings = $(this).data('i18n');
 
         if ($(this).next().find(`#${context.id}-user-metadata`).children().length == 0) {
             let selectedValues = {};
@@ -159,7 +159,7 @@ export function initPatronMetadata() {
  * @param {Event} event Toggle event that triggered this handler.
  */
 function toggleHandler(event) {
-    let formHeight = $(`#${event.data.id}-metadata-form`).height();
+    const formHeight = $(`#${event.data.id}-metadata-form`).height();
 
     event.data.$element.closest('#cboxContent').height(formHeight + 22);
     event.data.$element.closest('#cboxLoadedContent').height(formHeight);
@@ -191,21 +191,21 @@ function addToggleListeners($toggleElements, id) {
  * @param {Object}  context  An object containing the patron's username and the work's OLID.
  */
 function addChangeListeners(context) {
-    let $questionSections = $('.aspect-section');
-    let username = context.username;
-    let workOlid = context.work.split('/')[2];
+    const $questionSections = $('.aspect-section');
+    const username = context.username;
+    const workOlid = context.work.split('/')[2];
 
     $questionSections.each(function() {
-        let $inputs = $(this).find('input')
+        const $inputs = $(this).find('input')
 
         $inputs.each(function() {
             $(this).on('change', function() {
-                let type = $(this).attr('name');
-                let value = $(this).attr('value');
-                let observation = {};
+                const type = $(this).attr('name');
+                const value = $(this).attr('value');
+                const observation = {};
                 observation[type] = value;
 
-                let data = {
+                const data = {
                     username: username,
                     action: `${$(this).prop('checked') ? 'add': 'delete'}`,
                     observation: observation
